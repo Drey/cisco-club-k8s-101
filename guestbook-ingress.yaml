@@ -1,0 +1,19 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  namespace: cisco-club
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /guestbook(/|$)(.*)
+          backend:
+            serviceName: frontend-clusterip
+            servicePort: 80
